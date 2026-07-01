@@ -36,6 +36,13 @@ RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=tmpfs,dst=/tmp \
     /ctx/build.sh
 
+# Create the bootc install configuration directory
+RUN mkdir -p /usr/lib/bootc/install/
+
+# Write the default root filesystem type to the configuration file
+RUN echo '[install.filesystem.root]' > /usr/lib/bootc/install/00-root.toml && \
+    echo 'type = "xfs"' >> /usr/lib/bootc/install/00-root.toml
+
 ### LINTING
 ## Verify final image and contents are correct.
 RUN bootc container lint
