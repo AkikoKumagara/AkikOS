@@ -77,6 +77,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
 
+      - name: Download terra44-mesa GPG Key
+        run: |
+          mkdir -p ./keys
+          curl https://raw.githubusercontent.com/AkikoKumagara/AkikOS/refs/heads/main/system_files/etc/pki/rpm-gpg/RPM-GPG-KEY-terra44-mesa -o ./keys/RPM-GPG-KEY-terra44-mesa
+
       - name: Build disk images
         id: build
         uses: osbuild/bootc-image-builder-action@508936ec3c3bb2b88310d9bdf9b3bc64c087bb55 # main
