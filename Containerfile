@@ -2,7 +2,6 @@
 FROM scratch AS ctx
 COPY build_files /
 COPY system_files /system_files
-COPY ./system_files/etc/pki/rpm-gpg/RPM-GPG-KEY-terra44-mesa /etc/pki/rpm-gpg/RPM-GPG-KEY-terra44-mesa
 
 # Base Image
 FROM ghcr.io/ublue-os/bazzite:stable
@@ -17,7 +16,9 @@ FROM ghcr.io/ublue-os/bazzite:stable
 # CentOS base images: quay.io/centos-bootc/centos-bootc:stream10
 
 #GPG error fix
-COPY --from=ctx /etc/pki/rpm-gpg/RPM-GPG-KEY-terra44-mesa /etc/pki/rpm-gpg/RPM-GPG-KEY-terra44-mesa
+RUN if [ -f /etc/yum.repos.d/terra-mesa.repo ]; then \
+        sed -i 's/gpgcheck=1/gpgcheck=0/g' /etc/yum.repos.d/terra-mesa.repo; \
+    fi
 ### [IM]MUTABLE /opt
 ## Some bootable images, like Fedora, have /opt symlinked to /var/opt, in order to
 ## make it mutable/writable for users. However, some packages write files to this directory,
