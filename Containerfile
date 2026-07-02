@@ -18,7 +18,6 @@ FROM ghcr.io/ublue-os/bazzite:stable
 
 #GPG error fix
 COPY --from=ctx /etc/pki/rpm-gpg/RPM-GPG-KEY-terra44-mesa /etc/pki/rpm-gpg/RPM-GPG-KEY-terra44-mesa
-COPY --from=ctx /system_files/etc/yum.repos.d/ /etc/yum.repos.d/
 ### [IM]MUTABLE /opt
 ## Some bootable images, like Fedora, have /opt symlinked to /var/opt, in order to
 ## make it mutable/writable for users. However, some packages write files to this directory,
