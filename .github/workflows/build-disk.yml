@@ -91,7 +91,7 @@ jobs:
           image: ${{ env.IMAGE_REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.DEFAULT_TAG }}
           chown: ${{ env.USER_UID }}:${{ env.USER_GID }}
           types: ${{ matrix.disk-type }}
-          additional-args: --use-librepo=True --rootfs xfs -v ${{ github.workspace }}/keys/RPM-GPG-KEY-terra44-mesa:/etc/pki/rpm-gpg/RPM-GPG-KEY-terra44-mesa:ro
+          additional-args: '--use-librepo=True --rootfs xfs --volume="${{ github.workspace }}/keys/RPM-GPG-KEY-terra44-mesa:/etc/pki/rpm-gpg/RPM-GPG-KEY-terra44-mesa:ro"'
 
       - name: Upload disk images and Checksum to Job Artifacts
         if: inputs.upload-to-s3 != true && github.event_name != 'pull_request'
