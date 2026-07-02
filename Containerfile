@@ -2,6 +2,7 @@
 FROM scratch AS ctx
 COPY build_files /
 COPY system_files /system_files
+COPY ./system_files/etc/pki/rpm-gpg/RPM-GPG-KEY-terra44-mesa /etc/pki/rpm-gpg/RPM-GPG-KEY-terra44-mesa
 
 # Base Image
 FROM ghcr.io/ublue-os/bazzite:stable
